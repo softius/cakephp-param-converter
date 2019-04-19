@@ -71,7 +71,8 @@ class DispatchListener implements EventListenerInterface
                         Inflector::tableize($methodParamClass->getShortName())
                     );
 
-                    $requestParams[$i] = $table->get($requestParam);
+                    $tableGetMethod = empty($table->paramConverterGetMethod) ? 'get' : $table->paramConverterGetMethod;
+                    $requestParams[$i] = $table->$tableGetMethod($requestParam);
                 } elseif (!empty($methodParamClass) && $methodParamClass->getName() === DateTime::class) {
                     $requestParams[$i] = new DateTime($requestParam);
                 } elseif (!empty($methodParamType)) {
