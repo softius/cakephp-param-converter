@@ -10,6 +10,7 @@ use Cake\ORM\TableRegistry;
 use Cake\TestSuite\TestCase;
 use DateTime;
 use ParamConverter\DispatchListener;
+use ParamConverter\Test\App\Controller\AltUsersController;
 use ParamConverter\Test\App\Controller\UsersController;
 use ParamConverter\Test\App\Model\Table\UsersTable;
 
@@ -84,6 +85,24 @@ class DispatchListenerTest extends TestCase
         /** @var ServerRequest $updatedRequest */
         $updatedRequest = $event->getData('request');
         $this->assertTrue($updatedRequest->getParam('pass.0') instanceof EntityInterface);
+    }
+
+    public function testAlternateGetMethod(): void
+    {
+        $event = new Event('beforeEvent');
+        $event->setData('controller', new AltUsersController());
+
+        $request = (new ServerRequest())
+            ->withParam('pass', ["00000000-0000-0000-0000-000000000001"])
+            ->withParam('action', 'withEntity');
+        $response = new Response();
+
+        $listener = new DispatchListener();
+        $listener->beforeDispatch($event, $request, $response);
+
+        /** @var ServerRequest $updatedRequest */
+        $updatedRequest = $event->getData('request');
+        $this->assertEquals($updatedRequest->getParam('pass.0')->name, 'AltUserName');
     }
 
     public function testActionNoParams(): void
