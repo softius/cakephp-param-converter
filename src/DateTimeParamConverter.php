@@ -24,6 +24,10 @@ class DateTimeParamConverter implements ParamConverterInterface
 
     /**
      * @inheritDoc
+     *
+     * @throws \Exception
+     *
+     * @return DateTime
      */
     public function convertTo(string $value, string $class)
     {

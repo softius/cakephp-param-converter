@@ -23,6 +23,10 @@ class IntegerParamConverter implements ParamConverterInterface
 
     /**
      * @inheritDoc
+     *
+     * @throws BadRequestException if URL string value is not numeric
+     *
+     * @return int
      */
     public function convertTo(string $value, string $class)
     {

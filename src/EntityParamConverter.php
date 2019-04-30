@@ -26,6 +26,11 @@ class EntityParamConverter implements ParamConverterInterface
 
     /**
      * @inheritDoc
+     *
+     * @throws \Cake\Datasource\Exception\InvalidPrimaryKeyException When $value as a primaryKey has an
+     *      incorrect number of elements.
+     *
+     * @return \Cake\ORM\Entity
      */
     public function convertTo(string $value, string $class)
     {

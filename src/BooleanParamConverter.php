@@ -23,6 +23,10 @@ class BooleanParamConverter implements ParamConverterInterface
 
     /**
      * @inheritDoc
+     * 
+     * @throws BadRequestException if URL string value cannot be interpreted as true or false
+     *
+     * @return bool
      */
     public function convertTo(string $value, string $class)
     {

@@ -23,6 +23,10 @@ class FloatParamConverter implements ParamConverterInterface
 
     /**
      * @inheritDoc
+     *
+     * @throws BadRequestException
+     *
+     * @return float
      */
     public function convertTo(string $value, string $class)
     {
