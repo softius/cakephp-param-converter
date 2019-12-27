@@ -21,6 +21,18 @@ class EntityParamConverter implements ParamConverterInterface
      */
     public function supports(string $class): bool
     {
+        if (empty($class) || !is_subclass_of($class, Entity::class)) {
+            return false;
+        }
+
+        if (!preg_match('/^(.*)\\\Model\\\Entity\\\(.*)$/', $class, $matches)) {
+            return false;
+        }
+
+        $tableClass = $matches[1] . '\Model\Table\\' . Inflector::pluralize(App::shortName($class, 'Model/Entity')) . 'Table';
+        if (!class_exists($tableClass)) {
+            return false;
+        }
         return !empty($class) && is_subclass_of($class, Entity::class);
     }
 
@@ -29,7 +41,13 @@ class EntityParamConverter implements ParamConverterInterface
      */
     public function convertTo(string $value, string $class)
     {
+        preg_match('/^(.*)\\\Model\\\Entity\\\(.*)$/', $class, $matches);
+
+        $tableClass = $matches[1] . '\Model\Table\\' . Inflector::pluralize(App::shortName($class, 'Model/Entity')) . 'Table';
+
         $table = App::shortName($class, 'Model/Entity');
+
+        TableRegistry::getTableLocator()->set(Inflector::tableize($table), new $tableClass());
         $table = TableRegistry::getTableLocator()->get(
             Inflector::tableize($table)
         );
