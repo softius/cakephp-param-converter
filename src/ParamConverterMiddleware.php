@@ -24,7 +24,7 @@ class ParamConverterMiddleware implements \Psr\Http\Server\MiddlewareInterface
         $class = $factory->getControllerClass($request);
         if (!$class) {
             // Controller does not exist. Let Cake handle it naturally (MissingControllerException)
-            $class = get_class($factory->create($request, $response));
+            $class = get_class($factory->create($request));
         }
 
         $converters = [];
