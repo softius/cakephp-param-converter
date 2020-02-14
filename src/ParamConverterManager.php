@@ -51,30 +51,18 @@ class ParamConverterManager
     /**
      * Applies all the registered converters to the specified request
      *
-     * @param \Cake\Http\ServerRequest $args Request to be updated (replace params with objects)
+     * @param array $requestParams request params
      * @param string $controller Controller name
      * @param string $action action name
-     *
-     * @return array
-     *
+     * @return \Cake\Http\ServerRequest
      * @throws \ReflectionException
      */
-    public function apply($args, string $controller, \Closure $action): array
+    public function apply(array $requestParams, string $controller, \Closure $action)
     {
-        try {
-            $method = new \ReflectionFunction($action);
-        } catch (ReflectionException $e) {
-            throw new MissingActionException([
-                'controller' => $request->getParam('controller') . 'Controller',
-                'action' => $request->getParam('action'),
-                'prefix' => $request->getParam('prefix') ?: '',
-                'plugin' => $request->getParam('plugin'),
-            ]);
-        }
+        $method = new \ReflectionFunction($action);
         $methodParams = $method->getParameters();
-        $requestParams = $args;
-        $stopAt = min(count($methodParams), count($requestParams));
-        for ($i = 0; $i < $stopAt; $i++) {
+
+        for ($i = 0; $i < min(count($methodParams), count($requestParams)); $i++) {
             $classOrType = $this->getClassOrType($methodParams[$i]);
             if (!empty($classOrType)) {
                 $requestParams[$i] = $this->convertParam($requestParams[$i], $classOrType);
@@ -111,11 +99,11 @@ class ParamConverterManager
     private function getClassOrType(ReflectionParameter $parameter): ?string
     {
         $class = $parameter->getClass();
-        if (!empty($class)) {
+        if ($class !== null) {
             return $class->getName();
         }
 
-        if (!empty($parameter->getType()) && $parameter->getType()->getName() !== 'string') {
+        if ($parameter->getType() !== null && $parameter->getType()->getName() !== 'string') {
             return $parameter->getType()->getName();
         }
 
