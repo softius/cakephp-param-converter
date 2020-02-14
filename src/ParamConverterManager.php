@@ -51,16 +51,18 @@ class ParamConverterManager
     /**
      * Applies all the registered converters to the specified request
      *
-     * @param \Cake\Http\ServerRequest $request Request to be updated (replace params with objects)
+     * @param \Cake\Http\ServerRequest $args Request to be updated (replace params with objects)
      * @param string $controller Controller name
      * @param string $action action name
-     * @return \Cake\Http\ServerRequest
+     *
+     * @return array
+     *
      * @throws \ReflectionException
      */
-    public function apply(ServerRequest $request, string $controller, string $action): ServerRequest
+    public function apply($args, string $controller, \Closure $action): array
     {
         try {
-            $method = new ReflectionMethod($controller, $action);
+            $method = new \ReflectionFunction($action);
         } catch (ReflectionException $e) {
             throw new MissingActionException([
                 'controller' => $request->getParam('controller') . 'Controller',
@@ -70,8 +72,7 @@ class ParamConverterManager
             ]);
         }
         $methodParams = $method->getParameters();
-        $requestParams = $request->getParam('pass');
-
+        $requestParams = $args;
         $stopAt = min(count($methodParams), count($requestParams));
         for ($i = 0; $i < $stopAt; $i++) {
             $classOrType = $this->getClassOrType($methodParams[$i]);
@@ -80,7 +81,7 @@ class ParamConverterManager
             }
         }
 
-        return $request->withParam('pass', $requestParams);
+        return $requestParams;
     }
 
     /**
