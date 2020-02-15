@@ -1,6 +1,6 @@
 <?php
 
-namespace ParamConverter;
+namespace ParamConverter\Controller;
 
 use Cake\Controller\Controller;
 use Cake\Core\Configure;

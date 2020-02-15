@@ -1,6 +1,6 @@
 <?php
 
-namespace ParamConverter;
+namespace ParamConverter\ParamConverter;
 
 use Cake\Core\App;
 use Cake\ORM\Entity;

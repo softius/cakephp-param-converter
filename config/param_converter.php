@@ -2,12 +2,12 @@
 return [
     'ParamConverter' => [
         'converters' => [
-            \ParamConverter\EntityParamConverter::class,
-            \ParamConverter\DateTimeParamConverter::class,
-            \ParamConverter\FrozenDateTimeParamConverter::class,
-            \ParamConverter\BooleanParamConverter::class,
-            \ParamConverter\IntegerParamConverter::class,
-            \ParamConverter\FloatParamConverter::class
+            \ParamConverter\ParamConverter\EntityParamConverter::class,
+            \ParamConverter\ParamConverter\DateTimeParamConverter::class,
+            \ParamConverter\ParamConverter\FrozenDateTimeParamConverter::class,
+            \ParamConverter\ParamConverter\BooleanParamConverter::class,
+            \ParamConverter\ParamConverter\IntegerParamConverter::class,
+            \ParamConverter\ParamConverter\FloatParamConverter::class
         ]
     ]
 ];

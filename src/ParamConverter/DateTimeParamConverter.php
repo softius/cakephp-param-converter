@@ -1,6 +1,6 @@
 <?php
 
-namespace ParamConverter;
+namespace ParamConverter\ParamConverter;
 
 use Cake\Http\Exception\BadRequestException;
 use DateTime;

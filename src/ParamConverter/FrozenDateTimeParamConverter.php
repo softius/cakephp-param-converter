@@ -1,5 +1,5 @@
 <?php
-namespace ParamConverter;
+namespace ParamConverter\ParamConverter;
 
 use Cake\Chronos\Date;
 use Cake\Http\Exception\BadRequestException;
