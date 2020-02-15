@@ -5,6 +5,7 @@ namespace ParamConverter\Controller;
 use Cake\Controller\Controller;
 use Cake\Core\Configure;
 use Closure;
+use ParamConverter\ParamConverterManager;
 use Psr\Http\Message\ResponseInterface;
 
 class ParamConvertedController extends Controller
