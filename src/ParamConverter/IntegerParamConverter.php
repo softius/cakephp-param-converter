@@ -3,6 +3,7 @@
 namespace ParamConverter\ParamConverter;
 
 use Cake\Http\Exception\BadRequestException;
+use ParamConverter\ParamConverterInterface;
 
 /**
  * Class EntityParamConverter

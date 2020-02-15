@@ -3,6 +3,7 @@
 namespace ParamConverter\ParamConverter;
 
 use Cake\Http\Exception\BadRequestException;
+use ParamConverter\ParamConverterInterface;
 
 /**
  * Class BooleanParamConverter
@@ -26,9 +27,11 @@ class BooleanParamConverter implements ParamConverterInterface
      */
     public function convertTo(string $value, string $class)
     {
-        if (in_array(strtolower($value), ['1', 'true', 'yes', 'on'])) {
+        if(in_array(strtolower($value), ['1', 'true', 'yes', 'on'], true)) {
             return true;
-        } elseif (in_array(strtolower($value), ['0', 'false', 'no', 'off'])) {
+        }
+
+        if (in_array(strtolower($value), ['0', 'false', 'no', 'off'], true)) {
             return false;
         }
         throw new BadRequestException();

@@ -53,16 +53,19 @@ class ParamConverterManager
      *
      * @param array $requestParams request params
      * @param string $controller Controller name
-     * @param string $action action name
-     * @return \Cake\Http\ServerRequest
+     * @param \Closure $action action name
+     *
      * @throws \ReflectionException
+     *
+     * @return array
      */
-    public function apply(array $requestParams, string $controller, \Closure $action)
+    public function apply(array $requestParams, string $controller, \Closure $action): array
     {
         $method = new \ReflectionFunction($action);
         $methodParams = $method->getParameters();
 
-        for ($i = 0; $i < min(count($methodParams), count($requestParams)); $i++) {
+        $iMax = min(count($methodParams), count($requestParams));
+        for ($i = 0; $i < $iMax; $i++) {
             $classOrType = $this->getClassOrType($methodParams[$i]);
             if (!empty($classOrType)) {
                 $requestParams[$i] = $this->convertParam($requestParams[$i], $classOrType);

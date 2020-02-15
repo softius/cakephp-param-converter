@@ -3,6 +3,7 @@ namespace ParamConverter\ParamConverter;
 
 use Cake\Chronos\Date;
 use Cake\Http\Exception\BadRequestException;
+use ParamConverter\ParamConverterInterface;
 use Cake\I18n\FrozenDate;
 use Cake\I18n\FrozenTime;
 use Cake\I18n\Time;

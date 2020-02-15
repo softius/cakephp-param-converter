@@ -6,6 +6,7 @@ use Cake\Core\App;
 use Cake\ORM\Entity;
 use Cake\ORM\TableRegistry;
 use Cake\Utility\Inflector;
+use ParamConverter\ParamConverterInterface;
 
 /**
  * Class EntityParamConverter
