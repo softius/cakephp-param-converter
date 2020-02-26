@@ -1,19 +1,14 @@
 <?php
 
-namespace ParamConverter\Controller\Traits;
+namespace ParamConverter\Controller;
 
+use Cake\Controller\Controller;
 use Cake\Core\Configure;
 use Closure;
 use ParamConverter\ParamConverterManager;
+use Psr\Http\Message\ResponseInterface;
 
-/**
- * Trait ParamConverterTrait
- *
- * @package ParamConverter\Controller\Traits
- *
- * @mixin \Cake\Controller\Controller
- */
-trait ParamConverterTrait
+class ParamConvertedController extends Controller
 {
     /**
      * @param \Closure $action action
