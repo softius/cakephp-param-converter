@@ -1,11 +1,11 @@
 <?php
 
-namespace ParamConverter\Test\TestCase;
+namespace ParamConverter\Test\TestCase\ParamConverter;
 
 use Cake\Http\Exception\BadRequestException;
 use Cake\I18n\FrozenTime;
 use Cake\TestSuite\TestCase;
-use ParamConverter\FrozenDateTimeParamConverter;
+use ParamConverter\ParamConverter\FrozenDateTimeParamConverter;
 
 class FrozenTimeParamConverterTest extends TestCase
 {

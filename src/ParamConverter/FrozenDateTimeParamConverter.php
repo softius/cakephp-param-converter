@@ -3,10 +3,10 @@ namespace ParamConverter\ParamConverter;
 
 use Cake\Chronos\Date;
 use Cake\Http\Exception\BadRequestException;
-use ParamConverter\ParamConverterInterface;
 use Cake\I18n\FrozenDate;
 use Cake\I18n\FrozenTime;
 use Cake\I18n\Time;
+use ParamConverter\ParamConverterInterface;
 
 /**
  * Class FrozenDateTimeParamConverter
@@ -36,7 +36,7 @@ class FrozenDateTimeParamConverter implements ParamConverterInterface
         try {
             return new $class($value);
         } catch (\Exception $e) {
-            throw new BadRequestException();
+            throw new BadRequestException(null, 0, $e);
         }
     }
 }

@@ -27,7 +27,7 @@ class BooleanParamConverter implements ParamConverterInterface
      */
     public function convertTo(string $value, string $class)
     {
-        if(in_array(strtolower($value), ['1', 'true', 'yes', 'on'], true)) {
+        if (in_array(strtolower($value), ['1', 'true', 'yes', 'on'], true)) {
             return true;
         }
 

@@ -1,10 +1,10 @@
 <?php
 
-namespace ParamConverter\Test\TestCase;
+namespace ParamConverter\Test\TestCase\ParamConverter;
 
 use Cake\Http\Exception\BadRequestException;
 use Cake\TestSuite\TestCase;
-use ParamConverter\IntegerParamConverter;
+use ParamConverter\ParamConverter\IntegerParamConverter;
 
 class IntegerParamConverterTest extends TestCase
 {
@@ -18,14 +18,14 @@ class IntegerParamConverterTest extends TestCase
     /**
      * @dataProvider conversionDataProvider
      * @param string $rawValue Raw value
-     * @param string $expectedValue Expected value upon conversion
+     * @param mixed $expectedValue Expected value upon conversion
      */
-    public function testConvertTo(string $rawValue, string $expectedValue): void
+    public function testConvertTo(string $rawValue, $expectedValue): void
     {
         $converter = new IntegerParamConverter();
         $convertedValue = $converter->convertTo($rawValue, "int");
         $this->assertEquals($expectedValue, $convertedValue);
-        $this->assertInternalType("int", $convertedValue);
+        $this->assertIsInt($convertedValue);
     }
 
     public function testException(): void

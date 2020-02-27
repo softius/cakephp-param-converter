@@ -51,13 +51,13 @@ class ParamConverterManager
     /**
      * Applies all the registered converters to the specified request
      *
-     * @param array $requestParams request params
+     * @param array<string> $requestParams request params
      * @param string $controller Controller name
      * @param \Closure $action action name
      *
      * @throws \ReflectionException
      *
-     * @return array
+     * @return mixed[]
      */
     public function apply(array $requestParams, string $controller, \Closure $action): array
     {
