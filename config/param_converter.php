@@ -7,7 +7,7 @@ return [
             \ParamConverter\Converter\FrozenDateTimeConverter::class,
             \ParamConverter\Converter\BooleanConverter::class,
             \ParamConverter\Converter\IntegerConverter::class,
-            \ParamConverter\Converter\FloatConverter::class
+            \ParamConverter\Converter\FloatConverter::class,
         ]
     ]
 ];
