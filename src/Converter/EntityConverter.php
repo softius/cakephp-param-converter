@@ -1,6 +1,6 @@
 <?php
 
-namespace ParamConverter\ParamConverter;
+namespace ParamConverter\Converter;
 
 use Cake\Core\App;
 use Cake\ORM\Entity;
@@ -9,13 +9,13 @@ use Cake\Utility\Inflector;
 use ParamConverter\ParamConverterInterface;
 
 /**
- * Class EntityParamConverter
+ * Class EntityConverter
  *
  * Param Converter for Entity classes
  *
  * @package ParamConverter
  */
-class EntityParamConverter implements ParamConverterInterface
+class EntityConverter implements ParamConverterInterface
 {
     /**
      * @inheritDoc

@@ -1,18 +1,18 @@
 <?php
 
-namespace ParamConverter\ParamConverter;
+namespace ParamConverter\Converter;
 
 use Cake\Http\Exception\BadRequestException;
 use ParamConverter\ParamConverterInterface;
 
 /**
- * Class BooleanParamConverter
+ * Class BooleanConverter
  *
  * Param Converter for converting boolean like request strings to bool Controller parameters
  *
  * @package ParamConverter
  */
-class BooleanParamConverter implements ParamConverterInterface
+class BooleanConverter implements ParamConverterInterface
 {
     /**
      * @inheritDoc

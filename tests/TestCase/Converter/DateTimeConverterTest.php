@@ -1,16 +1,16 @@
 <?php
 
-namespace ParamConverter\Test\TestCase\ParamConverter;
+namespace ParamConverter\Test\TestCase\Converter;
 
 use Cake\Http\Exception\BadRequestException;
 use Cake\TestSuite\TestCase;
-use ParamConverter\ParamConverter\DateTimeParamConverter;
+use ParamConverter\Converter\DateTimeConverter;
 
-class DateTimeParamConverterTest extends TestCase
+class DateTimeConverterTest extends TestCase
 {
     public function testSupports(): void
     {
-        $converter = new DateTimeParamConverter();
+        $converter = new DateTimeConverter();
         $this->assertTrue($converter->supports(\DateTime::class));
     }
 
@@ -22,7 +22,7 @@ class DateTimeParamConverterTest extends TestCase
      */
     public function testConvertTo(string $rawValue, string $expectedValue, string $format): void
     {
-        $converter = new DateTimeParamConverter();
+        $converter = new DateTimeConverter();
         /** @var \DateTime $convertedValue */
         $convertedValue = $converter->convertTo($rawValue, \DateTime::class);
         $this->assertInstanceOf(\DateTime::class, $convertedValue);
@@ -31,7 +31,7 @@ class DateTimeParamConverterTest extends TestCase
 
     public function testException(): void
     {
-        $converter = new DateTimeParamConverter();
+        $converter = new DateTimeConverter();
         $this->expectException(BadRequestException::class);
         $converter->convertTo("not-a-valid-datetime", \DateTime::class);
     }

@@ -1,18 +1,18 @@
 <?php
 
-namespace ParamConverter\Test\TestCase\ParamConverter;
+namespace ParamConverter\Test\TestCase\Converter;
 
 use Cake\Http\Exception\BadRequestException;
-use Cake\I18n\FrozenTime;
+use Cake\I18n\Time;
 use Cake\TestSuite\TestCase;
-use ParamConverter\ParamConverter\FrozenDateTimeParamConverter;
+use ParamConverter\Converter\FrozenDateTimeConverter;
 
-class FrozenTimeParamConverterTest extends TestCase
+class TimeConverterTest extends TestCase
 {
     public function testSupports(): void
     {
-        $converter = new FrozenDateTimeParamConverter();
-        $this->assertTrue($converter->supports(FrozenTime::class));
+        $converter = new FrozenDateTimeConverter();
+        $this->assertTrue($converter->supports(Time::class));
     }
 
     /**
@@ -23,18 +23,18 @@ class FrozenTimeParamConverterTest extends TestCase
      */
     public function testConvertTo(string $rawValue, string $expectedValue, string $format): void
     {
-        $converter = new FrozenDateTimeParamConverter();
-        /** @var \Cake\I18n\FrozenTime $convertedValue */
-        $convertedValue = $converter->convertTo($rawValue, FrozenTime::class);
-        $this->assertInstanceOf(FrozenTime::class, $convertedValue);
+        $converter = new FrozenDateTimeConverter();
+        /** @var \Cake\I18n\Time $convertedValue */
+        $convertedValue = $converter->convertTo($rawValue, Time::class);
+        $this->assertInstanceOf(Time::class, $convertedValue);
         $this->assertEquals($expectedValue, $convertedValue->format($format));
     }
 
     public function testException(): void
     {
-        $converter = new FrozenDateTimeParamConverter();
+        $converter = new FrozenDateTimeConverter();
         $this->expectException(BadRequestException::class);
-        $converter->convertTo("not-a-valid-datetime", FrozenTime::class);
+        $converter->convertTo("notvalid", Time::class);
     }
 
     /**

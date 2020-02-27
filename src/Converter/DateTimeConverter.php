@@ -1,6 +1,6 @@
 <?php
 
-namespace ParamConverter\ParamConverter;
+namespace ParamConverter\Converter;
 
 use Cake\Http\Exception\BadRequestException;
 use DateTime;
@@ -8,13 +8,13 @@ use Exception;
 use ParamConverter\ParamConverterInterface;
 
 /**
- * Class DateTimeParamConverter
+ * Class DateTimeConverter
  *
  * Param Converter for DateTime class
  *
  * @package ParamConverter
  */
-class DateTimeParamConverter implements ParamConverterInterface
+class DateTimeConverter implements ParamConverterInterface
 {
     /**
      * @inheritDoc

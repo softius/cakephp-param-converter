@@ -1,5 +1,5 @@
 <?php
-namespace ParamConverter\ParamConverter;
+namespace ParamConverter\Converter;
 
 use Cake\Chronos\Date;
 use Cake\Http\Exception\BadRequestException;
@@ -9,11 +9,11 @@ use Cake\I18n\Time;
 use ParamConverter\ParamConverterInterface;
 
 /**
- * Class FrozenDateTimeParamConverter
+ * Class FrozenDateTimeConverter
  *
  * Param Converter for FrozenDate and FrozenTime classes
  */
-class FrozenDateTimeParamConverter implements ParamConverterInterface
+class FrozenDateTimeConverter implements ParamConverterInterface
 {
     /**
      * @inheritDoc

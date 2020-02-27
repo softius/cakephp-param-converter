@@ -1,16 +1,16 @@
 <?php
 
-namespace ParamConverter\Test\TestCase\ParamConverter;
+namespace ParamConverter\Test\TestCase\Converter;
 
 use Cake\Http\Exception\BadRequestException;
 use Cake\TestSuite\TestCase;
-use ParamConverter\ParamConverter\IntegerParamConverter;
+use ParamConverter\Converter\IntegerConverter;
 
-class IntegerParamConverterTest extends TestCase
+class IntegerConverterTest extends TestCase
 {
     public function testSupports(): void
     {
-        $converter = new IntegerParamConverter();
+        $converter = new IntegerConverter();
         $this->assertTrue($converter->supports('int'));
         $this->assertFalse($converter->supports('float'));
     }
@@ -22,7 +22,7 @@ class IntegerParamConverterTest extends TestCase
      */
     public function testConvertTo(string $rawValue, $expectedValue): void
     {
-        $converter = new IntegerParamConverter();
+        $converter = new IntegerConverter();
         $convertedValue = $converter->convertTo($rawValue, "int");
         $this->assertEquals($expectedValue, $convertedValue);
         $this->assertIsInt($convertedValue);
@@ -30,7 +30,7 @@ class IntegerParamConverterTest extends TestCase
 
     public function testException(): void
     {
-        $converter = new IntegerParamConverter();
+        $converter = new IntegerConverter();
         $this->expectException(BadRequestException::class);
         $converter->convertTo("no-int-number", "int");
     }

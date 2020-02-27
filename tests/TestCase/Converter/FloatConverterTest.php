@@ -1,16 +1,16 @@
 <?php
 
-namespace ParamConverter\Test\TestCase\ParamConverter;
+namespace ParamConverter\Test\TestCase\Converter;
 
 use Cake\Http\Exception\BadRequestException;
 use Cake\TestSuite\TestCase;
-use ParamConverter\ParamConverter\FloatParamConverter;
+use ParamConverter\Converter\FloatConverter;
 
-class FloatParamConverterTest extends TestCase
+class FloatConverterTest extends TestCase
 {
     public function testSupports(): void
     {
-        $converter = new FloatParamConverter();
+        $converter = new FloatConverter();
         $this->assertTrue($converter->supports('float'));
         $this->assertFalse($converter->supports('int'));
     }
@@ -22,7 +22,7 @@ class FloatParamConverterTest extends TestCase
      */
     public function testConvertTo(string $rawValue, $expectedValue): void
     {
-        $converter = new FloatParamConverter();
+        $converter = new FloatConverter();
         $convertedValue = $converter->convertTo($rawValue, "float");
         $this->assertEquals($expectedValue, $convertedValue);
         $this->assertIsFloat($convertedValue);
@@ -30,7 +30,7 @@ class FloatParamConverterTest extends TestCase
 
     public function testException(): void
     {
-        $converter = new FloatParamConverter();
+        $converter = new FloatConverter();
         $this->expectException(BadRequestException::class);
         $converter->convertTo("no-float-number", "float");
     }

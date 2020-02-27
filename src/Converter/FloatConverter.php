@@ -1,25 +1,25 @@
 <?php
 
-namespace ParamConverter\ParamConverter;
+namespace ParamConverter\Converter;
 
 use Cake\Http\Exception\BadRequestException;
 use ParamConverter\ParamConverterInterface;
 
 /**
- * Class EntityParamConverter
+ * Class FloatConverter
  *
- * Param Converter for converting integer-like request strings to int Controller parameters
+ * Param Converter for converting float like request strings to float Controller parameters
  *
  * @package ParamConverter
  */
-class IntegerParamConverter implements ParamConverterInterface
+class FloatConverter implements ParamConverterInterface
 {
     /**
      * @inheritDoc
      */
     public function supports(string $class): bool
     {
-        return $class === 'int';
+        return $class === 'float';
     }
 
     /**
@@ -27,8 +27,8 @@ class IntegerParamConverter implements ParamConverterInterface
      */
     public function convertTo(string $value, string $class)
     {
-        if (ctype_digit($value)) {
-            return (int)$value;
+        if (is_numeric($value)) {
+            return (float)$value;
         }
         throw new BadRequestException();
     }
