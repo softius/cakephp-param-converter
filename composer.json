@@ -1,5 +1,5 @@
 {
-    "name": "softius/cakephp-param-converter",
+    "name": "ali1/cakephp-param-converter",
     "description": "Param converter for CakePHP Routing",
     "keywords": ["cakephp", "plugin", "middleware", "routing"],
     "type": "cakephp-plugin",
