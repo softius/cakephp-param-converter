@@ -1,6 +1,6 @@
 # Param Converter
 
-CakePHP v3.x plugin for converting request parameters to objects. These objects replace the original parameters before dispatching the controller action and hence they can be injected as controller method arguments.
+CakePHP v4.x plugin for converting request parameters to objects. These objects replace the original parameters before dispatching the controller action and hence they can be injected as controller method arguments.
 
 Heavily inspired by [Symfony ParamConverter](https://symfony.com/doc/current/bundles/SensioFrameworkExtraBundle/annotations/converters.html)
 
