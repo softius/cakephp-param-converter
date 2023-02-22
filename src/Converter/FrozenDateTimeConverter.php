@@ -34,7 +34,7 @@ class FrozenDateTimeConverter implements ParamConverterInterface
     public function convertTo(string $value, string $class)
     {
         try {
-            return new $class($value);
+            return new $class($value); /* @phpstan-ignore-line */
         } catch (\Exception $e) {
             throw new BadRequestException(null, 0, $e);
         }

@@ -3,11 +3,14 @@ parameters:
     paths:
         - src
         - tests
-    autoload_files:
+    bootstrapFiles:
         - tests/bootstrap.php
     earlyTerminatingMethodCalls:
         Cake\Console\Shell:
             - abort
+    ignoreErrors:
+        - '#Construct empty\(\) is not allowed\. Use more strict comparison\.#'
+
 includes:
-    - vendor/thecodingmachine/phpstan-strict-rules/phpstan-strict-rules.neon
+    - vendor/phpstan/phpstan-strict-rules/rules.neon
     - vendor/timeweb/phpstan-enum/extension.neon

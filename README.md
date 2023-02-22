@@ -4,12 +4,14 @@ CakePHP v4.x plugin for converting request parameters to objects. These objects 
 
 Heavily inspired by [Symfony ParamConverter](https://symfony.com/doc/current/bundles/SensioFrameworkExtraBundle/annotations/converters.html)
 
+Test currently need updated since re-writing code with Middleware.
+
 ## Install
 
 Using Composer:
 
 ```
-composer require softius/cakephp-param-converter
+composer require ali1/cakephp-param-converter
 ```
 
 You then need to load the plugin. You can use the shell command:
@@ -20,12 +22,32 @@ bin/cake plugin load ParamConverter
 
 ## Usage
 
-To use, your AppController needs to extended `ParamConvertedController`
-```php
-<?php // AppController.php
-class AppController extends ParamConvertedController
-{
-    // AppController methods
+To use, start using typed arguments in controller methods.
+
+Entity and FrozenDatetime examples
+``` php
+<?php
+// src/Controller/AppointmentsController.php
+
+class AppointmentsController extends AppController {
+    public function view(Appointment $appointment): void
+        {
+            // users will still navigate to yoursite.com/appointments/view/65
+            // but the param converter removes the need for this line: $appointment = $this->Appointment->get($id);
+            // use the ConfigurableEntityConverter (see below) to use a customised getter instead of Table->get
+            $this->set('appointment', $appointment);
+        }
+    public function onDate(FrozenDate $date): void
+    {
+        // navigate to yoursite.com/appointments/onDate/2023-02-22
+        // $date will be the FrozenDate object
+        $appointments = $this->Appointments->find('all')
+            ->where([
+                'Appointments.start >=' => $date->toDateString(),
+                'Appointments.start <' => $date->addDay(), 'cancelled IS NULL',
+            ]);
+        $this->set('appointments', $appointments);
+    }
 }
 ```
 
@@ -41,7 +63,6 @@ return [
     'ParamConverter' => [
         'converters' => [
             \ParamConverter\Converter\EntityConverter::class,
-            \ParamConverter\Converter\DateTimeConverter::class,
             \ParamConverter\Converter\FrozenDateTimeConverter::class,
             \ParamConverter\Converter\BooleanConverter::class,
             \ParamConverter\Converter\IntegerConverter::class,
@@ -97,7 +118,7 @@ class ConfigurableEntityParamConverter extends EntityConverter
 }
 ```
 
-Then create a this file in config/
+Then create this file in config/
 
 ```php
 <?php // config/param_converter.php
@@ -117,9 +138,6 @@ return [
 ];
 
 ```
-## Security
-
-If you discover any security related issues, please email softius@gmail.com instead of using the issue tracker.
 
 ## Credits
 

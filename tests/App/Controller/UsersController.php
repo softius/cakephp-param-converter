@@ -8,10 +8,9 @@ use Cake\I18n\FrozenDate;
 use Cake\I18n\FrozenTime;
 use Cake\I18n\Time;
 use DateTime;
-use ParamConverter\Controller\ParamConvertedController;
 use ParamConverter\Test\App\Model\Entity\User;
 
-class UsersController extends ParamConvertedController
+class UsersController extends Controller
 {
     public function initialize(): void
     {
@@ -27,11 +26,6 @@ class UsersController extends ParamConvertedController
     public function withEntity(User $entity): void
     {
         Configure::write('Tests.result', compact('entity'));
-    }
-
-    public function withTime(Time $time): void
-    {
-        Configure::write('Tests.result', compact('time'));
     }
 
     public function withDatetime(DateTime $dateTime): void

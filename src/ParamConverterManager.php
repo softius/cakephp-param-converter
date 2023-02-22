@@ -51,28 +51,36 @@ class ParamConverterManager
     /**
      * Applies all the registered converters to the specified request
      *
-     * @param array<string> $requestParams request params
+     * @param ServerRequest $request
      * @param string $controller Controller name
-     * @param \Closure $action action name
+     * @param string $action action name
      *
-     * @throws \ReflectionException
-     *
-     * @return mixed[]
+     * @return ServerRequest
      */
-    public function apply(array $requestParams, string $controller, \Closure $action): array
+    public function apply(ServerRequest $request, string $controller, string $action): ServerRequest
     {
-        $method = new \ReflectionFunction($action);
+        try {
+            $method = new ReflectionMethod($controller, $action);
+        } catch (ReflectionException $e) {
+            throw new MissingActionException([
+                'controller' => $request->getParam('controller') . 'Controller',
+                'action' => $request->getParam('action'),
+                'prefix' => $request->getParam('prefix') ?: '',
+                'plugin' => $request->getParam('plugin'),
+            ]);
+        }
         $methodParams = $method->getParameters();
+        $requestParams = $request->getParam('pass');
 
-        $iMax = min(count($methodParams), count($requestParams));
-        for ($i = 0; $i < $iMax; $i++) {
+        $stopAt = min(count($methodParams), count($requestParams));
+        for ($i = 0; $i < $stopAt; $i++) {
             $classOrType = $this->getClassOrType($methodParams[$i]);
             if (!empty($classOrType)) {
                 $requestParams[$i] = $this->convertParam($requestParams[$i], $classOrType);
             }
         }
 
-        return $requestParams;
+        return $request->withParam('pass', $requestParams);
     }
 
     /**
