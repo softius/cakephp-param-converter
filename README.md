@@ -78,6 +78,9 @@ All converters must implement the `ParamConverterInterface`.
 
 Here is an example custom converter. This one extends the EntityConverter making it more powerful.
 
+Instead of just using the $Table->get($id) method to get an entity from the database, it allows
+for custom methods as defined by table's $paramConverterGetMethod
+
 ```php
 <?php // src/ParamConverter/ConfigurableEntityConverter
 
@@ -127,7 +130,7 @@ return [
     'ParamConverter' => [
         'converters' => [
             \App\ParamConverter\ConfigurableEntityConverter::class,
-            \ParamConverter\Converter\EntityConverter::class,
+            // \ParamConverter\Converter\EntityConverter::class,
             \ParamConverter\Converter\DateTimeConverter::class,
             \ParamConverter\Converter\FrozenDateTimeConverter::class,
             \ParamConverter\Converter\BooleanConverter::class,
@@ -137,6 +140,27 @@ return [
     ],
 ];
 
+```
+
+Now one of the tables can utilise a more useful getter:
+
+``` php
+<?php
+
+class AppointmentsTable extends Table {
+    /**
+     * @var string will be checked by Param Converter Entity Converter to see which Table method to use
+     * i.e. getComprehensive($id)
+     */
+    public string $paramConverterGetMethod = 'getComprehensive';
+
+    public function getComprehensive($id) {
+        return $this->get(
+            $id,
+            ['contain' => ['Payments' => ['Users']]]
+        );
+    }
+}
 ```
 
 ## Credits
