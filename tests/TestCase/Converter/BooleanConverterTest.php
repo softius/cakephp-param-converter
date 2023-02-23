@@ -1,16 +1,16 @@
 <?php
 
-namespace ParamConverter\Test\TestCase;
+namespace ParamConverter\Test\TestCase\Converter;
 
 use Cake\Http\Exception\BadRequestException;
 use Cake\TestSuite\TestCase;
-use ParamConverter\BooleanParamConverter;
+use ParamConverter\Converter\BooleanConverter;
 
-class BooleanParamConverterTest extends TestCase
+class BooleanConverterTest extends TestCase
 {
     public function testSupports(): void
     {
-        $converter = new BooleanParamConverter();
+        $converter = new BooleanConverter();
         $this->assertTrue($converter->supports('bool'));
         $this->assertFalse($converter->supports('int'));
     }
@@ -18,19 +18,19 @@ class BooleanParamConverterTest extends TestCase
     /**
      * @dataProvider conversionDataProvider
      * @param string $rawValue Raw value
-     * @param string $expectedValue Expected value upon conversion
+     * @param mixed $expectedValue Expected value upon conversion
      */
-    public function testConvertTo(string $rawValue, string $expectedValue): void
+    public function testConvertTo(string $rawValue, $expectedValue): void
     {
-        $converter = new BooleanParamConverter();
+        $converter = new BooleanConverter();
         $convertedValue = $converter->convertTo($rawValue, "bool");
         $this->assertEquals($expectedValue, $convertedValue);
-        $this->assertInternalType("bool", $convertedValue);
+        $this->assertIsBool($convertedValue);
     }
 
     public function testException(): void
     {
-        $converter = new BooleanParamConverter();
+        $converter = new BooleanConverter();
         $this->expectException(BadRequestException::class);
         $converter->convertTo("not-a-bool", "bool");
     }

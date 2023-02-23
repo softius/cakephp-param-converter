@@ -1,17 +1,18 @@
 <?php
 
-namespace ParamConverter;
+namespace ParamConverter\Converter;
 
 use Cake\Http\Exception\BadRequestException;
+use ParamConverter\ParamConverterInterface;
 
 /**
- * Class EntityParamConverter
+ * Class EntityConverter
  *
  * Param Converter for converting integer-like request strings to int Controller parameters
  *
  * @package ParamConverter
  */
-class IntegerParamConverter implements ParamConverterInterface
+class IntegerConverter implements ParamConverterInterface
 {
     /**
      * @inheritDoc

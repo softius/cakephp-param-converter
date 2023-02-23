@@ -1,18 +1,19 @@
 <?php
-namespace ParamConverter;
+namespace ParamConverter\Converter;
 
 use Cake\Chronos\Date;
 use Cake\Http\Exception\BadRequestException;
 use Cake\I18n\FrozenDate;
 use Cake\I18n\FrozenTime;
 use Cake\I18n\Time;
+use ParamConverter\ParamConverterInterface;
 
 /**
- * Class FrozenDateTimeParamConverter
+ * Class FrozenDateTimeConverter
  *
  * Param Converter for FrozenDate and FrozenTime classes
  */
-class FrozenDateTimeParamConverter implements ParamConverterInterface
+class FrozenDateTimeConverter implements ParamConverterInterface
 {
     /**
      * @inheritDoc
@@ -33,9 +34,9 @@ class FrozenDateTimeParamConverter implements ParamConverterInterface
     public function convertTo(string $value, string $class)
     {
         try {
-            return new $class($value);
+            return new $class($value); /* @phpstan-ignore-line */
         } catch (\Exception $e) {
-            throw new BadRequestException();
+            throw new BadRequestException(null, 0, $e);
         }
     }
 }

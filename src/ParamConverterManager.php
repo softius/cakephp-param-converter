@@ -51,11 +51,11 @@ class ParamConverterManager
     /**
      * Applies all the registered converters to the specified request
      *
-     * @param \Cake\Http\ServerRequest $request Request to be updated (replace params with objects)
+     * @param ServerRequest $request
      * @param string $controller Controller name
      * @param string $action action name
-     * @return \Cake\Http\ServerRequest
-     * @throws \ReflectionException
+     *
+     * @return ServerRequest
      */
     public function apply(ServerRequest $request, string $controller, string $action): ServerRequest
     {
@@ -110,11 +110,11 @@ class ParamConverterManager
     private function getClassOrType(ReflectionParameter $parameter): ?string
     {
         $class = $parameter->getClass();
-        if (!empty($class)) {
+        if ($class !== null) {
             return $class->getName();
         }
 
-        if (!empty($parameter->getType()) && $parameter->getType()->getName() !== 'string') {
+        if ($parameter->getType() !== null && $parameter->getType()->getName() !== 'string') {
             return $parameter->getType()->getName();
         }
 

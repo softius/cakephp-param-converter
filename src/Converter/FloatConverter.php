@@ -1,17 +1,18 @@
 <?php
 
-namespace ParamConverter;
+namespace ParamConverter\Converter;
 
 use Cake\Http\Exception\BadRequestException;
+use ParamConverter\ParamConverterInterface;
 
 /**
- * Class FloatParamConverter
+ * Class FloatConverter
  *
  * Param Converter for converting float like request strings to float Controller parameters
  *
  * @package ParamConverter
  */
-class FloatParamConverter implements ParamConverterInterface
+class FloatConverter implements ParamConverterInterface
 {
     /**
      * @inheritDoc

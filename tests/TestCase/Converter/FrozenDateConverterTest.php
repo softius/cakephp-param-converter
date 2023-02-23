@@ -1,17 +1,18 @@
 <?php
 
-namespace ParamConverter\Test\TestCase;
+namespace ParamConverter\Test\TestCase\Converter;
 
 use Cake\Http\Exception\BadRequestException;
+use Cake\I18n\FrozenDate;
 use Cake\TestSuite\TestCase;
-use ParamConverter\DateTimeParamConverter;
+use ParamConverter\Converter\FrozenDateTimeConverter;
 
-class DateTimeParamConverterTest extends TestCase
+class FrozenDateConverterTest extends TestCase
 {
     public function testSupports(): void
     {
-        $converter = new DateTimeParamConverter();
-        $this->assertTrue($converter->supports(\DateTime::class));
+        $converter = new FrozenDateTimeConverter();
+        $this->assertTrue($converter->supports(FrozenDate::class));
     }
 
     /**
@@ -22,18 +23,18 @@ class DateTimeParamConverterTest extends TestCase
      */
     public function testConvertTo(string $rawValue, string $expectedValue, string $format): void
     {
-        $converter = new DateTimeParamConverter();
-        /** @var \DateTime $convertedValue */
-        $convertedValue = $converter->convertTo($rawValue, \DateTime::class);
-        $this->assertInstanceOf(\DateTime::class, $convertedValue);
+        $converter = new FrozenDateTimeConverter();
+        /** @var \Cake\I18n\FrozenDate $convertedValue */
+        $convertedValue = $converter->convertTo($rawValue, FrozenDate::class);
+        $this->assertInstanceOf(FrozenDate::class, $convertedValue);
         $this->assertEquals($expectedValue, $convertedValue->format($format));
     }
 
     public function testException(): void
     {
-        $converter = new DateTimeParamConverter();
+        $converter = new FrozenDateTimeConverter();
         $this->expectException(BadRequestException::class);
-        $converter->convertTo("not-a-valid-datetime", \DateTime::class);
+        $converter->convertTo("notvalid", FrozenDate::class);
     }
 
     /**
@@ -44,9 +45,9 @@ class DateTimeParamConverterTest extends TestCase
         return [
             // raw value, converted value
             ['now', date('Y-m-d'), 'Y-m-d'],
-            ['now', date('Y-m-d h:i'), 'Y-m-d h:i'],
+            ['now', date('Y-m-d 00:00:00'), 'Y-m-d H:i:s'],
             ['2020-09-10', '2020-09-10', 'Y-m-d'],
-            ['2020-09-10 15:10:00', '2020-09-10 15:10:00', 'Y-m-d H:i:s'],
+            ['2020-09-10 15:10:00', '2020-09-10 00:00:00', 'Y-m-d H:i:s'],
         ];
     }
 }
