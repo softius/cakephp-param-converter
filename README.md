@@ -131,7 +131,6 @@ return [
         'converters' => [
             \App\ParamConverter\ConfigurableEntityConverter::class,
             // \ParamConverter\Converter\EntityConverter::class,
-            \ParamConverter\Converter\DateTimeConverter::class,
             \ParamConverter\Converter\FrozenDateTimeConverter::class,
             \ParamConverter\Converter\BooleanConverter::class,
             \ParamConverter\Converter\IntegerConverter::class,
@@ -162,6 +161,9 @@ class AppointmentsTable extends Table {
     }
 }
 ```
+## Limitations
+
+* Can break URL helpers and paginate helpers
 
 ## Credits
 
