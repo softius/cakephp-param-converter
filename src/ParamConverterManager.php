@@ -109,9 +109,12 @@ class ParamConverterManager
      */
     private function getClassOrType(ReflectionParameter $parameter): ?string
     {
-        $class = $parameter->getClass();
-        if ($class !== null) {
-            return $class->getName();
+        if ($parameter->getType() !== null && !$parameter->getType()->isBuiltin()) {
+            try {
+                return $parameter->getType()->getName();
+            } catch (ReflectionException $e) {
+                return null;
+            }
         }
 
         if ($parameter->getType() !== null && $parameter->getType()->getName() !== 'string') {

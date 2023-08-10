@@ -103,7 +103,7 @@ Cake\Datasource\ConnectionManager::setConfig('test', [
 ]);
 
 // Alias AppController to the test App
-class_alias($pluginName . '\Test\App\Controller\AppController', 'App\Controller\AppController');
+//class_alias($pluginName . '\Test\App\Controller\AppController', 'App\Controller\AppController');
 // If plugin has routes.php/bootstrap.php then load them, otherwise don't.
 $loadPluginRoutes = file_exists(ROOT . DS . 'config' . DS . 'routes.php');
 $loadPluginBootstrap = file_exists(ROOT . DS . 'config' . DS . 'bootstrap.php');

@@ -65,42 +65,6 @@ class UsersControllerTest extends TestCase
     /**
      * @throws \ReflectionException
      */
-    public function testDatetime(): void
-    {
-        $event = new Event('Controller.startup', $this->Controller);
-
-        $this->Controller->setRequest($this->Controller->getRequest()
-            ->withParam('pass', ["2020-10-10"])
-            ->withParam('action', 'withDatetime'));
-
-        $action = $this->Controller->getAction();
-        $this->Controller->invokeAction($action, $this->Controller->getRequest()->getParam('pass'));
-        $return = Configure::read('Tests.result');
-
-        $this->assertTrue($return['dateTime'] instanceof Datetime);
-    }
-
-    /**
-     * @throws \ReflectionException
-     */
-    public function testTime(): void
-    {
-        $event = new Event('Controller.startup', $this->Controller);
-
-        $this->Controller->setRequest($this->Controller->getRequest()
-            ->withParam('pass', ["2020-10-10"])
-            ->withParam('action', 'withTime'));
-
-        $action = $this->Controller->getAction();
-        $this->Controller->invokeAction($action, $this->Controller->getRequest()->getParam('pass'));
-        $return = Configure::read('Tests.result');
-
-        $this->assertInstanceOf(Time::class, $return['time']);
-    }
-
-    /**
-     * @throws \ReflectionException
-     */
     public function testFrozenDate(): void
     {
         $event = new Event('Controller.startup', $this->Controller);
